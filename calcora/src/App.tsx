@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import CalculatorPage from "./pages/Calculator/Calculator";
 
 function App() {
   return (
@@ -12,12 +13,7 @@ function App() {
 
           <Route
             path="/calculator"
-            element={
-              <PlaceholderPage
-                title="Basic Calculator"
-                description="Your everyday calculation workspace will live here."
-              />
-            }
+            element={<CalculatorPage />}
           />
 
           <Route

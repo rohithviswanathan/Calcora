@@ -6,7 +6,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Card from "../components/ui/Card";
+import Card from "../../components/ui/Card";
 
 const highlights = [
   {
