@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Calcora C -->
+  <path d="M26 5.5H9.5A4.5 4.5 0 0 0 5 10v12a4.5 4.5 0 0 0 4.5 4.5H26v-5H10V10.5h16v-5Z" fill="#F4F4F5"></path>
+
+  <!-- Calculation Plus -->
+  <path d="M21 13h-3v-3h-4v3h-3v4h3v3h4v-3h3v-4Z" fill="#6366F1"></path>
+</svg>
