@@ -83,4 +83,54 @@ describe("calculate", () => {
 
     expect(result.success).toBe(false);
   });
+
+  it("calculates standalone percentages", () => {
+    const result = calculate("50%");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(0.5);
+    }
+  });
+
+  it("calculates percentage multiplication", () => {
+    const result = calculate("200 × 15%");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(30);
+    }
+  });
+
+  it("calculates percentage addition", () => {
+    const result = calculate("200 + 15%");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(230);
+    }
+  });
+
+  it("calculates percentage subtraction", () => {
+    const result = calculate("200 − 15%");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(170);
+    }
+  });
+
+  it("calculates percentage division", () => {
+    const result = calculate("200 ÷ 10%");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(2000);
+    }
+  });
 });
