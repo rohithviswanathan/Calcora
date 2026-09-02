@@ -163,8 +163,10 @@ export function calculatorReducer(
         return state;
       }
 
-      const evaluation =
-        calculate(state.expression);
+      const evaluation = calculate(
+        state.expression,
+        action.angleMode,
+      );
 
       if (!evaluation.success) {
         return {
