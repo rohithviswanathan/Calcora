@@ -12,6 +12,48 @@ function normalizeExpression(expression: string): string {
     .trim();
 }
 
+function normalizeScientificExpression(
+  expression: string,
+  angleMode: "deg" | "rad" = "deg",
+): string {
+  let normalized = expression;
+
+  // Convert square root symbol to mathjs syntax.
+  // √25 -> sqrt(25)
+  normalized = normalized.replace(
+    /√(\d+(?:\.\d+)?)/g,
+    "sqrt($1)",
+  );
+
+  // Scientific trigonometric functions.
+  //
+  // DEG mode:
+  // sin(30) -> sin((30 * pi) / 180)
+  //
+  // RAD mode:
+  // sin(30) -> sin(30)
+  if (angleMode === "deg") {
+    normalized = normalized.replace(
+      /\b(sin|cos|tan)\(([^()]*)\)/g,
+      "$1((($2) * pi) / 180)",
+    );
+  }
+
+  // log() -> base-10 logarithm
+  normalized = normalized.replace(
+    /\blog\(/g,
+    "log10(",
+  );
+
+  // ln() -> natural logarithm
+  normalized = normalized.replace(
+    /\bln\(/g,
+    "log(",
+  );
+
+  return normalized;
+}
+
 /**
  * Converts calculator-style percentage expressions into
  * regular mathematical expressions before passing them to mathjs.
@@ -86,6 +128,7 @@ function formatResult(value: number): string {
 
 export function calculate(
   expression: string,
+  angleMode: "deg" | "rad" = "deg",
 ): CalculatorEvaluation {
   const trimmedExpression = expression.trim();
 
@@ -104,8 +147,16 @@ export function calculate(
       trimmedExpression,
     );
 
+    const normalizedScientific =
+      normalizeScientificExpression(
+        normalized,
+        angleMode,
+    );
+
     const normalizedWithPercentage =
-      normalizePercentageExpression(normalized);
+      normalizePercentageExpression(
+        normalizedScientific,
+      );
 
     const value = evaluate(
       normalizedWithPercentage,
