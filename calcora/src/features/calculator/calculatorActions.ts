@@ -11,6 +11,7 @@ export type CalculatorAction =
     }
   | {
       type: "evaluate";
+      angleMode?: "deg" | "rad";
     }
   | {
       type: "memoryClear";
