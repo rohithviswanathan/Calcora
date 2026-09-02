@@ -3,6 +3,7 @@ import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home/Home";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import CalculatorPage from "./pages/Calculator/Calculator";
+import Scientific from "./pages/Scientific/Scientific";
 
 function App() {
   return (
@@ -18,12 +19,7 @@ function App() {
 
           <Route
             path="/scientific"
-            element={
-              <PlaceholderPage
-                title="Scientific Calculator"
-                description="Advanced mathematical functions will live here."
-              />
-            }
+            element={<Scientific />}
           />
 
           <Route
@@ -81,7 +77,7 @@ function App() {
             element={
               <PlaceholderPage
                 title="History"
-                description="Your calculation history will appear here."
+                description="Your calculation history will live here."
               />
             }
           />
