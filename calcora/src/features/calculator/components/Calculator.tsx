@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 
 import CalculatorDisplay from "./CalculatorDisplay";
-import CalculatorHistory from "./CalculatorHistory";
 import CalculatorKeypad from "./CalculatorKeypad";
 import { useCalculator } from "../useCalculator";
-import { useCalculatorHistory } from "../useCalculatorHistory";
 
 function Calculator() {
+
   const {
     expression,
     result,
@@ -21,13 +20,6 @@ function Calculator() {
     memoryAdd,
     memorySubtract,
   } = useCalculator();
-
-  const {
-    history,
-    addCalculation,
-    removeCalculation,
-    clearHistory,
-  } = useCalculatorHistory();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -90,12 +82,18 @@ function Calculator() {
         return;
       }
 
-      if (key === "Escape" || key === "Delete") {
+      if (
+        key === "Escape" ||
+        key === "Delete"
+      ) {
         clear();
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
 
     return () => {
       window.removeEventListener(
@@ -103,25 +101,12 @@ function Calculator() {
         handleKeyDown,
       );
     };
-  }, [input, clear, backspace, evaluate]);
-
-  useEffect(() => {
-    if (!result || !expression || error) {
-      return;
-    }
-
-    addCalculation(expression, result);
-  }, [result, expression, error, addCalculation]);
-
-  function handleHistorySelect(
-    selectedExpression: string,
-  ) {
-    clear();
-
-    for (const character of selectedExpression) {
-      input(character);
-    }
-  }
+  }, [
+    input,
+    clear,
+    backspace,
+    evaluate,
+  ]);
 
   return (
     <section className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 lg:py-10">
@@ -161,13 +146,6 @@ function Calculator() {
             />
           </div>
         </div>
-
-        <CalculatorHistory
-          history={history}
-          onSelect={handleHistorySelect}
-          onRemove={removeCalculation}
-          onClear={clearHistory}
-        />
       </div>
     </section>
   );
