@@ -1,4 +1,4 @@
-const OPERATORS = ["+", "-", "×", "÷", "^"];
+const OPERATORS = ["+", "-", "−", "×", "÷", "^"];
 
 export function isOperator(value: string): boolean {
   return OPERATORS.includes(value);
