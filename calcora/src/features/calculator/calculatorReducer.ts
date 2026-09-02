@@ -8,6 +8,7 @@ import {
   isDigit,
   isOperator,
   removeLastCharacter,
+  isPercentage,
 } from "./calculatorUtils";
 
 export const initialCalculatorState: CalculatorState = {
@@ -55,6 +56,25 @@ export function calculatorReducer(
 
       const lastCharacter =
         getLastCharacter(state.expression);
+
+      if (isPercentage(value)) {
+        if (
+          !state.expression ||
+          lastCharacter === "%" ||
+          isOperator(lastCharacter)
+        ) {
+          return state;
+        }
+
+        return {
+          ...state,
+          expression:
+            `${state.expression}${value}`,
+          result: "",
+          error: null,
+          justEvaluated: false,
+        };
+      }
 
       /*
        * Prevent consecutive operators.

@@ -34,6 +34,11 @@ function Calculator() {
         return;
       }
 
+      if (key === "%") {
+        input("%");
+        return;
+      }
+
       if (key === "-") {
         input("-");
         return;

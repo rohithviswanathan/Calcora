@@ -24,16 +24,17 @@ function CalculatorKeypad({
 
       <CalculatorKey
         variant="action"
-        onClick={() => onInput("(")}
+        onClick={() => onInput("%")}
+        ariaLabel="Percentage"
       >
-        (
+        %
       </CalculatorKey>
 
       <CalculatorKey
         variant="action"
-        onClick={() => onInput(")")}
+        onClick={() => onInput("(")}
       >
-        )
+        (
       </CalculatorKey>
 
       <CalculatorKey
@@ -44,15 +45,21 @@ function CalculatorKeypad({
         ÷
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("7")}>
+      <CalculatorKey
+        onClick={() => onInput("7")}
+      >
         7
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("8")}>
+      <CalculatorKey
+        onClick={() => onInput("8")}
+      >
         8
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("9")}>
+      <CalculatorKey
+        onClick={() => onInput("9")}
+      >
         9
       </CalculatorKey>
 
@@ -64,15 +71,21 @@ function CalculatorKeypad({
         ×
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("4")}>
+      <CalculatorKey
+        onClick={() => onInput("4")}
+      >
         4
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("5")}>
+      <CalculatorKey
+        onClick={() => onInput("5")}
+      >
         5
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("6")}>
+      <CalculatorKey
+        onClick={() => onInput("6")}
+      >
         6
       </CalculatorKey>
 
@@ -84,15 +97,21 @@ function CalculatorKeypad({
         −
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("1")}>
+      <CalculatorKey
+        onClick={() => onInput("1")}
+      >
         1
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("2")}>
+      <CalculatorKey
+        onClick={() => onInput("2")}
+      >
         2
       </CalculatorKey>
 
-      <CalculatorKey onClick={() => onInput("3")}>
+      <CalculatorKey
+        onClick={() => onInput("3")}
+      >
         3
       </CalculatorKey>
 

@@ -8,6 +8,10 @@ export function isDigit(value: string): boolean {
   return /^[0-9]$/.test(value);
 }
 
+export function isPercentage(value: string): boolean {
+  return value === "%";
+}
+
 export function getLastCharacter(
   expression: string,
 ): string {
