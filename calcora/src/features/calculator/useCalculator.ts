@@ -30,11 +30,15 @@ export function useCalculator() {
     });
   }, []);
 
-  const evaluate = useCallback(() => {
-    dispatch({
-      type: "evaluate",
-    });
-  }, []);
+  const evaluate = useCallback(
+    (angleMode?: "deg" | "rad") => {
+      dispatch({
+        type: "evaluate",
+        angleMode,
+      });
+    },
+    [],
+  );
 
   const memoryClear = useCallback(() => {
     dispatch({
