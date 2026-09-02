@@ -1,19 +1,33 @@
 import { useEffect } from "react";
 
 import CalculatorDisplay from "./CalculatorDisplay";
+import CalculatorHistory from "./CalculatorHistory";
 import CalculatorKeypad from "./CalculatorKeypad";
 import { useCalculator } from "../useCalculator";
+import { useCalculatorHistory } from "../useCalculatorHistory";
 
 function Calculator() {
   const {
-  expression,
-  result,
-  error,
-  input,
-  clear,
-  backspace,
-  evaluate,
-} = useCalculator();
+    expression,
+    result,
+    error,
+    input,
+    clear,
+    backspace,
+    evaluate,
+    memory,
+    memoryClear,
+    memoryRecall,
+    memoryAdd,
+    memorySubtract,
+  } = useCalculator();
+
+  const {
+    history,
+    addCalculation,
+    removeCalculation,
+    clearHistory,
+  } = useCalculatorHistory();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -29,13 +43,13 @@ function Calculator() {
         return;
       }
 
-      if (key === "+") {
-        input("+");
+      if (key === "%") {
+        input("%");
         return;
       }
 
-      if (key === "%") {
-        input("%");
+      if (key === "+") {
+        input("+");
         return;
       }
 
@@ -81,10 +95,7 @@ function Calculator() {
       }
     }
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener(
@@ -93,6 +104,24 @@ function Calculator() {
       );
     };
   }, [input, clear, backspace, evaluate]);
+
+  useEffect(() => {
+    if (!result || !expression || error) {
+      return;
+    }
+
+    addCalculation(expression, result);
+  }, [result, expression, error, addCalculation]);
+
+  function handleHistorySelect(
+    selectedExpression: string,
+  ) {
+    clear();
+
+    for (const character of selectedExpression) {
+      input(character);
+    }
+  }
 
   return (
     <section className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 lg:py-10">
@@ -116,6 +145,7 @@ function Calculator() {
             expression={expression}
             result={result}
             error={error}
+            memory={memory}
           />
 
           <div className="mt-3">
@@ -124,9 +154,20 @@ function Calculator() {
               onClear={clear}
               onBackspace={backspace}
               onEvaluate={evaluate}
+              onMemoryClear={memoryClear}
+              onMemoryRecall={memoryRecall}
+              onMemoryAdd={memoryAdd}
+              onMemorySubtract={memorySubtract}
             />
           </div>
         </div>
+
+        <CalculatorHistory
+          history={history}
+          onSelect={handleHistorySelect}
+          onRemove={removeCalculation}
+          onClear={clearHistory}
+        />
       </div>
     </section>
   );

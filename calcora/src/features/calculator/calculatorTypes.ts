@@ -5,6 +5,13 @@ export type CalculatorOperator =
   | "/"
   | "^";
 
+export interface CalculationHistoryItem {
+  id: string;
+  expression: string;
+  result: string;
+  timestamp: number;
+}
+
 export interface CalculationResult {
   expression: string;
   value: number;

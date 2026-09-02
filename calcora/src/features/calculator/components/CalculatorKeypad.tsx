@@ -5,6 +5,10 @@ interface CalculatorKeypadProps {
   onClear: () => void;
   onBackspace: () => void;
   onEvaluate: () => void;
+  onMemoryClear: () => void;
+  onMemoryRecall: () => void;
+  onMemoryAdd: () => void;
+  onMemorySubtract: () => void;
 }
 
 function CalculatorKeypad({
@@ -12,9 +16,47 @@ function CalculatorKeypad({
   onClear,
   onBackspace,
   onEvaluate,
+  onMemoryClear,
+  onMemoryRecall,
+  onMemoryAdd,
+  onMemorySubtract,
 }: CalculatorKeypadProps) {
   return (
     <div className="grid grid-cols-4 gap-2">
+      {/* Memory */}
+      <CalculatorKey
+        variant="action"
+        onClick={onMemoryClear}
+        ariaLabel="Memory clear"
+      >
+        MC
+      </CalculatorKey>
+
+      <CalculatorKey
+        variant="action"
+        onClick={onMemoryRecall}
+        ariaLabel="Memory recall"
+      >
+        MR
+      </CalculatorKey>
+
+      <CalculatorKey
+        variant="action"
+        onClick={onMemorySubtract}
+        ariaLabel="Memory subtract"
+      >
+        M−
+      </CalculatorKey>
+
+      <CalculatorKey
+        variant="action"
+        onClick={onMemoryAdd}
+        ariaLabel="Memory add"
+      >
+        M+
+      </CalculatorKey>
+
+      {/* Main controls */}
       <CalculatorKey
         variant="action"
         onClick={onClear}
@@ -45,21 +87,15 @@ function CalculatorKeypad({
         ÷
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("7")}
-      >
+      <CalculatorKey onClick={() => onInput("7")}>
         7
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("8")}
-      >
+      <CalculatorKey onClick={() => onInput("8")}>
         8
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("9")}
-      >
+      <CalculatorKey onClick={() => onInput("9")}>
         9
       </CalculatorKey>
 
@@ -71,21 +107,15 @@ function CalculatorKeypad({
         ×
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("4")}
-      >
+      <CalculatorKey onClick={() => onInput("4")}>
         4
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("5")}
-      >
+      <CalculatorKey onClick={() => onInput("5")}>
         5
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("6")}
-      >
+      <CalculatorKey onClick={() => onInput("6")}>
         6
       </CalculatorKey>
 
@@ -97,21 +127,15 @@ function CalculatorKeypad({
         −
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("1")}
-      >
+      <CalculatorKey onClick={() => onInput("1")}>
         1
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("2")}
-      >
+      <CalculatorKey onClick={() => onInput("2")}>
         2
       </CalculatorKey>
 
-      <CalculatorKey
-        onClick={() => onInput("3")}
-      >
+      <CalculatorKey onClick={() => onInput("3")}>
         3
       </CalculatorKey>
 

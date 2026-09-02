@@ -11,4 +11,16 @@ export type CalculatorAction =
     }
   | {
       type: "evaluate";
+    }
+  | {
+      type: "memoryClear";
+    }
+  | {
+      type: "memoryRecall";
+    }
+  | {
+      type: "memoryAdd";
+    }
+  | {
+      type: "memorySubtract";
     };

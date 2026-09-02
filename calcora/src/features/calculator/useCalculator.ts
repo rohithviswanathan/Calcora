@@ -36,14 +36,43 @@ export function useCalculator() {
     });
   }, []);
 
+  const memoryClear = useCallback(() => {
+    dispatch({
+      type: "memoryClear",
+    });
+  }, []);
+
+  const memoryRecall = useCallback(() => {
+    dispatch({
+      type: "memoryRecall",
+    });
+  }, []);
+
+  const memoryAdd = useCallback(() => {
+    dispatch({
+      type: "memoryAdd",
+    });
+  }, []);
+
+  const memorySubtract = useCallback(() => {
+    dispatch({
+      type: "memorySubtract",
+    });
+  }, []);
+
   return {
     expression: state.expression,
     result: state.result,
     error: state.error,
     justEvaluated: state.justEvaluated,
+    memory: state.memory,
     input,
     clear,
     backspace,
     evaluate,
+    memoryClear,
+    memoryRecall,
+    memoryAdd,
+    memorySubtract,
   };
 }

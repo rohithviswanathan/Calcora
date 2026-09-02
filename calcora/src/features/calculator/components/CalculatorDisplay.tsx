@@ -2,15 +2,26 @@ interface CalculatorDisplayProps {
   expression: string;
   result: string;
   error: string | null;
+  memory: number | null;
 }
 
 function CalculatorDisplay({
   expression,
   result,
   error,
+  memory,
 }: CalculatorDisplayProps) {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-5">
+      <div className="mb-2 flex min-h-4 items-center justify-between">
+        {memory !== null ? (
+          <span className="text-[10px] font-semibold tracking-wider text-[var(--muted)]">
+            M
+          </span>
+        ) : (
+          <span />
+        )}
+      </div>
       <div
         className="min-h-7 overflow-x-auto text-right text-sm text-[var(--muted)]"
         aria-label="Expression"

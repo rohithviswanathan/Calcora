@@ -3,4 +3,5 @@ export interface CalculatorState {
   result: string;
   error: string | null;
   justEvaluated: boolean;
+  memory: number | null;
 }

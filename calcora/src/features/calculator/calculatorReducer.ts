@@ -16,6 +16,7 @@ export const initialCalculatorState: CalculatorState = {
   result: "",
   error: null,
   justEvaluated: false,
+  memory: null,
 };
 
 export function calculatorReducer(
@@ -30,17 +31,16 @@ export function calculatorReducer(
         return {
           ...initialCalculatorState,
           expression: value,
+          memory: state.memory,
         };
       }
 
       if (state.justEvaluated) {
-        if (
-          isDigit(value) ||
-          value === "."
-        ) {
+        if (isDigit(value) || value === ".") {
           return {
             ...initialCalculatorState,
             expression: value,
+            memory: state.memory,
           };
         }
 
@@ -108,8 +108,13 @@ export function calculatorReducer(
       }
 
       /*
-       * Prevent multiple opening decimals
-       * from creating malformed input.
+       * Add leading zero before decimal.
+       *
+       * Example:
+       * .5
+       *
+       * becomes:
+       * 0.5
        */
       if (
         value === "." &&
@@ -134,7 +139,14 @@ export function calculatorReducer(
     }
 
     case "clear":
-      return initialCalculatorState;
+      /*
+       * AC clears the calculator,
+       * but memory must remain intact.
+       */
+      return {
+        ...initialCalculatorState,
+        memory: state.memory,
+      };
 
     case "backspace":
       return {
@@ -169,6 +181,121 @@ export function calculatorReducer(
           evaluation.result.formattedValue,
         error: null,
         justEvaluated: true,
+      };
+    }
+
+    case "memoryClear":
+      return {
+        ...state,
+        memory: null,
+      };
+
+    case "memoryRecall": {
+      if (state.memory === null) {
+        return state;
+      }
+
+      const recalledValue =
+        String(state.memory);
+
+      /*
+       * MR after a completed calculation
+       * starts a new expression.
+       */
+      if (state.justEvaluated) {
+        return {
+          ...initialCalculatorState,
+          expression: recalledValue,
+          memory: state.memory,
+        };
+      }
+
+      return {
+        ...state,
+        expression: recalledValue,
+        result: "",
+        error: null,
+        justEvaluated: false,
+      };
+    }
+
+    case "memoryAdd": {
+      let currentValue: number;
+
+      /*
+       * If there is a displayed result,
+       * use that result.
+       */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+         * Otherwise calculate the current
+         * expression directly.
+         */
+        const evaluation =
+          calculate(state.expression);
+
+        if (!evaluation.success) {
+          return state;
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      if (!Number.isFinite(currentValue)) {
+        return state;
+      }
+
+      return {
+        ...state,
+        memory:
+          (state.memory ?? 0) + currentValue,
+      };
+    }
+
+    case "memorySubtract": {
+      let currentValue: number;
+
+      /*
+       * If there is a displayed result,
+       * use that result.
+       */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+         * Otherwise calculate the current
+         * expression directly.
+         */
+        const evaluation =
+          calculate(state.expression);
+
+        if (!evaluation.success) {
+          return state;
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      if (!Number.isFinite(currentValue)) {
+        return state;
+      }
+
+      return {
+        ...state,
+        memory:
+          (state.memory ?? 0) - currentValue,
       };
     }
 
