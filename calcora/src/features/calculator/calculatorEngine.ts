@@ -9,6 +9,10 @@ function normalizeExpression(expression: string): string {
     .replaceAll("÷", "/")
     .replaceAll("−", "-")
     .replaceAll("π", "pi")
+    .replace(
+      /(\d+(?:\.\d+)?)\s*mod\s*(\d+(?:\.\d+)?)/g,
+      "mod($1, $2)",
+    )
     .trim();
 }
 

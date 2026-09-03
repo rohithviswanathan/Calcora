@@ -816,4 +816,478 @@ describe("calculatorReducer", () => {
     expect(state.error).toBeNull();
     expect(state.justEvaluated).toBe(true);
   });
+
+  it("calculates 10 to the power of the current expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("100");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates 10 to the power of zero", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "0",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("1");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates 10 to a negative power", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "-2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("0.01");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates 10 to a decimal power", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "0.5",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe(
+      "3.162277660168",
+    );
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates 10 to the power of an expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "+",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "1",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("1,000");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates 10 to the power of an existing result", () => {
+    let state = {
+      ...initialCalculatorState,
+      expression: "2+1",
+      result: "3",
+      justEvaluated: true,
+    };
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("1,000");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("shows an error when 10 to the power of x is too large", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "309",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfTen",
+    });
+
+    expect(state.result).toBe("");
+    expect(state.error).toBe(
+      "The result is too large.",
+    );
+    expect(state.justEvaluated).toBe(false);
+  });
+
+  it("calculates e to the power of the current expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("7.389056098931");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates e to the power of zero", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "0",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("1");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates e to a negative power", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "-2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("0.135335283237");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates e to a decimal power", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "0.5",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("1.6487212707");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates e to the power of an expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "+",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "1",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("20.085536923188");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates e to the power of an existing result", () => {
+    let state = {
+      ...initialCalculatorState,
+      expression: "2+1",
+      result: "3",
+      justEvaluated: true,
+    };
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("20.085536923188");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("shows an error when e to the power of x is too large", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "710",
+    });
+
+    state = calculatorReducer(state, {
+      type: "powerOfE",
+    });
+
+    expect(state.result).toBe("");
+    expect(state.error).toBe(
+      "The result is too large.",
+    );
+    expect(state.justEvaluated).toBe(false);
+  });
+
+  it("accepts mod as an operator", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "10",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    expect(state.expression).toBe("10mod");
+  });
+
+  it("prevents consecutive mod operators", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "10",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    expect(state.expression).toBe("10mod");
+  });
+
+  it("allows changing mod to another operator", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "10",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "+",
+    });
+
+    expect(state.expression).toBe("10+");
+  });
+
+  it("calculates a mod expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "10",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "3",
+    });
+
+    state = calculatorReducer(state, {
+      type: "evaluate",
+    });
+
+    expect(state.result).toBe("1");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates a mod expression with a decimal result", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "7.5",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "mod",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "evaluate",
+    });
+
+    expect(state.result).toBe("1.5");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("adds scientific notation to an expression", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "6.02",
+    });
+
+    state = calculatorReducer(state, {
+      type: "scientificNotation",
+    });
+
+    expect(state.expression).toBe("6.02e");
+  });
+
+  it("prevents scientific notation from being added twice", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "6.02",
+    });
+
+    state = calculatorReducer(state, {
+      type: "scientificNotation",
+    });
+
+    state = calculatorReducer(state, {
+      type: "scientificNotation",
+    });
+
+    expect(state.expression).toBe("6.02e");
+  });
+
+  it("calculates scientific notation through the reducer", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "6.02",
+    });
+
+    state = calculatorReducer(state, {
+      type: "scientificNotation",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "2",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "3",
+    });
+
+    state = calculatorReducer(state, {
+      type: "evaluate",
+    });
+
+    expect(state.result).toBe(
+      "602,000,000,000,000,000,000,000",
+    );
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
+
+  it("calculates scientific notation with a negative exponent", () => {
+    let state = initialCalculatorState;
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "1.5",
+    });
+
+    state = calculatorReducer(state, {
+      type: "scientificNotation",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "-",
+    });
+
+    state = calculatorReducer(state, {
+      type: "input",
+      value: "4",
+    });
+
+    state = calculatorReducer(state, {
+      type: "evaluate",
+    });
+
+    expect(state.result).toBe("0.00015");
+    expect(state.error).toBeNull();
+    expect(state.justEvaluated).toBe(true);
+  });
 });

@@ -23,8 +23,11 @@ function ScientificCalculator() {
     memoryAdd,
     memorySubtract,
     signToggle,
+    scientificNotation,
     cube,
-    cubeRoot
+    cubeRoot,
+    powerOfTen,
+    powerOfE,
   } = useCalculator();
 
   useEffect(() => {
@@ -131,7 +134,7 @@ function ScientificCalculator() {
         </p>
       </div>
 
-      <div className="mx-auto w-full max-w-md">
+      <div className="mx-auto w-full max-w-xl">
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-sm sm:p-4">
           <CalculatorDisplay
             expression={expression}
@@ -181,6 +184,9 @@ function ScientificCalculator() {
               onSignToggle={signToggle}
               onCube={cube}
               onCubeRoot={cubeRoot}
+              onPowerOfTen={powerOfTen}
+              onPowerOfE={powerOfE}
+              onScientificNotation={scientificNotation}
             />
           </div>
         </div>

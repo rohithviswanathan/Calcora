@@ -14,6 +14,18 @@ export type CalculatorAction =
     {
       type: "cubeRoot";
     }
+  |
+    {
+      type: "powerOfTen";
+    }
+  | 
+    {
+      type: "powerOfE";
+    }
+  |
+    {
+      type: "scientificNotation";
+    }
   | {
       type: "backspace";
     }

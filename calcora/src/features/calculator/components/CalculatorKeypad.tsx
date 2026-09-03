@@ -80,6 +80,13 @@ function CalculatorKeypad({
       </CalculatorKey>
 
       <CalculatorKey
+        variant="action"
+        onClick={() => onInput(")")}
+      >
+        )
+      </CalculatorKey>
+
+      <CalculatorKey
         variant="operator"
         onClick={() => onInput("÷")}
         ariaLabel="Divide"
@@ -149,7 +156,6 @@ function CalculatorKeypad({
 
       <CalculatorKey
         onClick={() => onInput("0")}
-        className="col-span-2"
       >
         0
       </CalculatorKey>
@@ -162,20 +168,20 @@ function CalculatorKeypad({
       </CalculatorKey>
 
       <CalculatorKey
-        variant="equals"
-        onClick={onEvaluate}
-        ariaLabel="Equals"
-      >
-        =
-      </CalculatorKey>
-
-      <CalculatorKey
         variant="action"
         onClick={onBackspace}
-        className="col-span-4"
         ariaLabel="Backspace"
       >
         ←
+      </CalculatorKey>
+
+      <CalculatorKey
+        variant="equals"
+        onClick={onEvaluate}
+        ariaLabel="Equals"
+        className="col-span-4"
+      >
+        =
       </CalculatorKey>
     </div>
   );

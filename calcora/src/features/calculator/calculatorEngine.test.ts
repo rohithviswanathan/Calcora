@@ -361,4 +361,95 @@ describe("calculate", () => {
       expect(result.result.value).toBe(5);
     }
   });
+
+  it("calculates modulo", () => {
+    const result = calculate("10 mod 3");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(1);
+      expect(result.result.formattedValue).toBe("1");
+    }
+  });
+
+  it("calculates modulo with a larger number", () => {
+    const result = calculate("17 mod 5");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(2);
+      expect(result.result.formattedValue).toBe("2");
+    }
+  });
+
+  it("calculates modulo with decimal values", () => {
+    const result = calculate("7.5 mod 2");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(1.5);
+      expect(result.result.formattedValue).toBe("1.5");
+    }
+  });
+
+  it("calculates modulo resulting in zero", () => {
+    const result = calculate("20 mod 4");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(0);
+      expect(result.result.formattedValue).toBe("0");
+    }
+  });
+
+  it("calculates modulo as part of an expression", () => {
+    const result = calculate("2 + 10 mod 3");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(3);
+      expect(result.result.formattedValue).toBe("3");
+    }
+  });
+
+  it("calculates positive scientific notation", () => {
+    const result = calculate("6.02e23");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(
+        6.02e23,
+        -19,
+      );
+    }
+  });
+
+  it("calculates scientific notation with a negative exponent", () => {
+    const result = calculate("1.5e-4");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(
+        0.00015,
+        10,
+      );
+    }
+  });
+
+  it("calculates scientific notation with an integer exponent", () => {
+    const result = calculate("2e3");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(2000);
+    }
+  });
 });

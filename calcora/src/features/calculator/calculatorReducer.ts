@@ -4,7 +4,9 @@ import type { CalculatorState } from "./calculatorState";
 
 import {
   canAppendDecimal,
+  endsWithOperator,
   getLastCharacter,
+  getTrailingOperator,
   isDigit,
   isOperator,
   removeLastCharacter,
@@ -61,7 +63,7 @@ export function calculatorReducer(
         if (
           !state.expression ||
           lastCharacter === "%" ||
-          isOperator(lastCharacter)
+          endsWithOperator(state.expression)
         ) {
           return state;
         }
@@ -87,13 +89,24 @@ export function calculatorReducer(
        */
       if (
         isOperator(value) &&
-        isOperator(lastCharacter)
+        endsWithOperator(state.expression)
       ) {
-        return {
-          ...state,
-          expression:
-            state.expression.slice(0, -1) + value,
-        };
+        const trailingOperator =
+          getTrailingOperator(state.expression);
+
+        if (trailingOperator) {
+          return {
+            ...state,
+            expression:
+              state.expression.slice(
+                0,
+                -trailingOperator.length,
+              ) + value,
+            result: "",
+            error: null,
+            justEvaluated: false,
+          };
+        }
       }
 
       /*
@@ -119,7 +132,7 @@ export function calculatorReducer(
       if (
         value === "." &&
         (!state.expression ||
-          isOperator(lastCharacter))
+          endsWithOperator(state.expression))
       ) {
         return {
           ...state,
@@ -474,6 +487,169 @@ export function calculatorReducer(
         }),
         error: null,
         justEvaluated: true,
+      };
+    }
+
+    case "powerOfTen": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * use that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      /*
+      * Calculate 10^x.
+      */
+      const powerOfTen =
+        10 ** currentValue;
+
+      /*
+      * Prevent Infinity / invalid results.
+      */
+      if (!Number.isFinite(powerOfTen)) {
+        return {
+          ...state,
+          result: "",
+          error: "The result is too large.",
+          justEvaluated: false,
+        };
+      }
+
+      return {
+        ...state,
+        result: powerOfTen.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "powerOfE": {
+      let currentValue: number;
+
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      const powerOfE = Math.exp(currentValue);
+
+      if (!Number.isFinite(powerOfE)) {
+        return {
+          ...state,
+          result: "",
+          error: "The result is too large.",
+          justEvaluated: false,
+        };
+      }
+
+      return {
+        ...state,
+        result: powerOfE.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "scientificNotation": {
+      /*
+      * Scientific notation requires a value
+      * before EXP.
+      *
+      * Example:
+      * 6.02 → 6.02e
+      */
+
+      if (!state.expression) {
+        return state;
+      }
+
+      /*
+      * EXP cannot be added twice to the
+      * same number.
+      */
+      if (
+        state.expression.endsWith("e") ||
+        state.expression.endsWith("E")
+      ) {
+        return state;
+      }
+
+      /*
+      * EXP should only be added when the
+      * expression currently ends with a number.
+      *
+      * Prevent:
+      * 5+EXP
+      * 5×EXP
+      * 5modEXP
+      */
+      const lastCharacter =
+        getLastCharacter(state.expression);
+
+      if (
+        !isDigit(lastCharacter) &&
+        lastCharacter !== "."
+      ) {
+        return state;
+      }
+
+      return {
+        ...state,
+        expression: `${state.expression}e`,
+        result: "",
+        error: null,
+        justEvaluated: false,
       };
     }
 

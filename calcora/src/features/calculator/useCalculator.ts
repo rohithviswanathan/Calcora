@@ -70,6 +70,24 @@ export function useCalculator() {
     });
   }, []);
 
+  const powerOfTen = useCallback(() => {
+    dispatch({
+      type: "powerOfTen",
+    });
+  }, []);
+
+  const powerOfE = useCallback(() => {
+    dispatch({
+      type: "powerOfE",
+    });
+  }, []);
+
+  const scientificNotation = useCallback(() => {
+    dispatch({
+      type: "scientificNotation",
+    });
+  }, []);
+
   const memoryClear = useCallback(() => {
     dispatch({
       type: "memoryClear",
@@ -103,6 +121,9 @@ export function useCalculator() {
     factorial,
     cube,
     cubeRoot,
+    powerOfTen,
+    powerOfE,
+    scientificNotation,
     input,
     clear,
     backspace,

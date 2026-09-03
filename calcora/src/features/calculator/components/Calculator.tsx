@@ -124,7 +124,7 @@ function Calculator() {
         </p>
       </div>
 
-      <div className="mx-auto w-full max-w-md">
+      <div className="mx-auto w-full max-w-lg">
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-sm sm:p-4">
           <CalculatorDisplay
             expression={expression}

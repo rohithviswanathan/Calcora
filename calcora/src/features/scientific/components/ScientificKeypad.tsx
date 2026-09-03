@@ -14,6 +14,9 @@ interface ScientificKeypadProps {
   onSignToggle: () => void;
   onCube: () => void;
   onCubeRoot: () => void;
+  onPowerOfTen: () => void;
+  onPowerOfE: () => void;
+  onScientificNotation: () => void;
 }
 
 function ScientificKeypad({
@@ -29,12 +32,15 @@ function ScientificKeypad({
   onFactorial,
   onSignToggle,
   onCube,
-  onCubeRoot
+  onCubeRoot,
+  onPowerOfTen,
+  onPowerOfE,
+  onScientificNotation,
 }: ScientificKeypadProps) {
   return (
     <div className="space-y-2">
       {/* Memory */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-6 gap-2">
         <CalculatorKey
           variant="action"
           onClick={onMemoryClear}
@@ -66,10 +72,7 @@ function ScientificKeypad({
         >
           M+
         </CalculatorKey>
-      </div>
 
-      {/* Scientific functions */}
-      <div className="grid grid-cols-4 gap-2">
         <CalculatorKey
           variant="action"
           onClick={() => onInput("sin(")}
@@ -85,7 +88,10 @@ function ScientificKeypad({
         >
           cos
         </CalculatorKey>
+      </div>
 
+      {/* Scientific functions */}
+      <div className="grid grid-cols-6 gap-2">
         <CalculatorKey
           variant="action"
           onClick={() => onInput("tan(")}
@@ -160,6 +166,22 @@ function ScientificKeypad({
 
         <CalculatorKey
           variant="action"
+          onClick={onPowerOfTen}
+          ariaLabel="10 to the power of x"
+        >
+          10ˣ
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onPowerOfE}
+          ariaLabel="e to the power of x"
+        >
+          eˣ
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
           onClick={() => onInput("^2")}
           ariaLabel="Square"
         >
@@ -224,6 +246,14 @@ function ScientificKeypad({
 
         <CalculatorKey
           variant="action"
+          onClick={onScientificNotation}
+          ariaLabel="Scientific notation"
+        >
+          EXP
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
           onClick={() => onInput("(")}
           ariaLabel="Open parenthesis"
         >
@@ -237,10 +267,7 @@ function ScientificKeypad({
         >
           )
         </CalculatorKey>
-      </div>
 
-      {/* Main controls */}
-      <div className="grid grid-cols-4 gap-2">
         <CalculatorKey
           variant="action"
           onClick={onClear}
@@ -255,15 +282,10 @@ function ScientificKeypad({
         >
           %
         </CalculatorKey>
+      </div>
 
-        <CalculatorKey
-          variant="action"
-          onClick={() => onInput("(")}
-          ariaLabel="Open parenthesis"
-        >
-          (
-        </CalculatorKey>
-
+      {/* Main controls */}
+      <div className="grid grid-cols-6 gap-2">
         <CalculatorKey
           variant="operator"
           onClick={() => onInput("÷")}
@@ -284,24 +306,16 @@ function ScientificKeypad({
           9
         </CalculatorKey>
 
+        <CalculatorKey onClick={() => onInput("4")}>
+          4
+        </CalculatorKey>
+
         <CalculatorKey
           variant="operator"
           onClick={() => onInput("×")}
           ariaLabel="Multiply"
         >
           ×
-        </CalculatorKey>
-
-        <CalculatorKey onClick={() => onInput("4")}>
-          4
-        </CalculatorKey>
-
-        <CalculatorKey onClick={() => onInput("5")}>
-          5
-        </CalculatorKey>
-
-        <CalculatorKey onClick={() => onInput("6")}>
-          6
         </CalculatorKey>
 
         <CalculatorKey
@@ -312,6 +326,14 @@ function ScientificKeypad({
           −
         </CalculatorKey>
 
+        <CalculatorKey onClick={() => onInput("5")}>
+          5
+        </CalculatorKey>
+
+        <CalculatorKey onClick={() => onInput("6")}>
+          6
+        </CalculatorKey>
+
         <CalculatorKey onClick={() => onInput("1")}>
           1
         </CalculatorKey>
@@ -320,8 +342,12 @@ function ScientificKeypad({
           2
         </CalculatorKey>
 
-        <CalculatorKey onClick={() => onInput("3")}>
-          3
+        <CalculatorKey
+          variant="action"
+          onClick={onBackspace}
+          ariaLabel="Backspace"
+        >
+          ←
         </CalculatorKey>
 
         <CalculatorKey
@@ -332,9 +358,12 @@ function ScientificKeypad({
           +
         </CalculatorKey>
 
+        <CalculatorKey onClick={() => onInput("3")}>
+          3
+        </CalculatorKey>
+
         <CalculatorKey
           onClick={() => onInput("0")}
-          className="col-span-2"
         >
           0
         </CalculatorKey>
@@ -346,22 +375,15 @@ function ScientificKeypad({
           .
         </CalculatorKey>
 
-        <CalculatorKey
+         <CalculatorKey
           variant="equals"
           onClick={onEvaluate}
           ariaLabel="Equals"
+          className="col-span-2"
         >
           =
         </CalculatorKey>
 
-        <CalculatorKey
-          variant="action"
-          onClick={onBackspace}
-          className="col-span-4"
-          ariaLabel="Backspace"
-        >
-          ←
-        </CalculatorKey>
       </div>
     </div>
   );
