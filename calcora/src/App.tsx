@@ -5,6 +5,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import CalculatorPage from "./pages/Calculator/Calculator";
 import Scientific from "./pages/Scientific/Scientific";
 import Finance from "./pages/Finance/Finance";
+import Converter from "./pages/Converter/Converter";
 
 function App() {
   return (
@@ -25,15 +26,7 @@ function App() {
 
           <Route path="/finance" element={<Finance />} />
 
-          <Route
-            path="/converter"
-            element={
-              <PlaceholderPage
-                title="Unit Converter"
-                description="Convert values across multiple measurement categories."
-              />
-            }
-          />
+          <Route path="/converter" element={<Converter />} />
 
           <Route
             path="/geometry"
