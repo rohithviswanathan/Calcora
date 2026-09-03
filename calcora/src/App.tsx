@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import CalculatorPage from "./pages/Calculator/Calculator";
 import Scientific from "./pages/Scientific/Scientific";
+import Finance from "./pages/Finance/Finance";
 
 function App() {
   return (
@@ -22,15 +23,7 @@ function App() {
             element={<Scientific />}
           />
 
-          <Route
-            path="/finance"
-            element={
-              <PlaceholderPage
-                title="Finance"
-                description="Financial calculators and visualizations will live here."
-              />
-            }
-          />
+          <Route path="/finance" element={<Finance />} />
 
           <Route
             path="/converter"
