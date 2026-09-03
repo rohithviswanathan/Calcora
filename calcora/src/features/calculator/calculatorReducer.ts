@@ -26,6 +26,16 @@ export function calculatorReducer(
   action: CalculatorAction,
 ): CalculatorState {
   switch (action.type) {
+
+    case "setExpression":
+      return {
+        ...state,
+        expression: action.value,
+        result: "",
+        error: null,
+        justEvaluated: false,
+      };
+
     case "input": {
       const value = action.value;
 

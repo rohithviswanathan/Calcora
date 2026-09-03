@@ -18,6 +18,16 @@ export function useCalculator() {
     });
   }, []);
 
+  const setExpression = useCallback(
+    (value: string) => {
+      dispatch({
+        type: "setExpression",
+        value,
+      });
+    },
+    [],
+  );
+
   const clear = useCallback(() => {
     dispatch({
       type: "clear",
@@ -118,6 +128,7 @@ export function useCalculator() {
     error: state.error,
     justEvaluated: state.justEvaluated,
     memory: state.memory,
+    setExpression,
     factorial,
     cube,
     cubeRoot,

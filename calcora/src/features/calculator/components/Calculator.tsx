@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import CalculatorDisplay from "./CalculatorDisplay";
 import CalculatorKeypad from "./CalculatorKeypad";
 import { useCalculator } from "../useCalculator";
 
 function Calculator() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     expression,
@@ -19,10 +21,24 @@ function Calculator() {
     memoryRecall,
     memoryAdd,
     memorySubtract,
+    setExpression
   } = useCalculator();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+
+      const target =
+        event.target as HTMLElement | null;
+
+      const isTyping =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.isContentEditable;
+
+      if (isTyping) {
+        return;
+      }
+
       const { key } = event;
 
       if (/^[0-9]$/.test(key)) {
@@ -106,6 +122,30 @@ function Calculator() {
     clear,
     backspace,
     evaluate,
+  ]);
+
+  useEffect(() => {
+    const incomingExpression =
+      location.state?.expression;
+
+    if (
+      typeof incomingExpression !== "string" ||
+      !incomingExpression.trim()
+    ) {
+      return;
+    }
+
+    setExpression(incomingExpression);
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [
+    location.pathname,
+    location.state,
+    navigate,
+    setExpression,
   ]);
 
   return (

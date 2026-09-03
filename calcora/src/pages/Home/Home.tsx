@@ -1,8 +1,7 @@
 import {
   ArrowRight,
   Calculator,
-  Command,
-  History,
+  Layers3,
   Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,21 +10,21 @@ import Card from "../../components/ui/Card";
 const highlights = [
   {
     icon: Calculator,
-    title: "Fast calculations",
+    title: "Everyday calculator",
     description:
-      "Handle everyday expressions with a focused, keyboard-friendly calculator.",
+      "Handle everyday calculations quickly with a clean, keyboard-friendly calculator built for speed and clarity.",
   },
   {
     icon: Sparkles,
-    title: "Specialized tools",
+    title: "More than basic math",
     description:
-      "Explore scientific, finance, conversion, statistics, and geometry tools.",
+      "Use scientific calculations today, with finance, conversion, statistics, geometry, and more built into the workspace.",
   },
   {
-    icon: History,
-    title: "Your workspace",
+    icon: Layers3,
+    title: "One focused workspace",
     description:
-      "Keep track of calculations and save useful results for later.",
+      "Keep the tools you need in one place with a simple interface designed to stay out of your way.",
   },
 ];
 
@@ -48,9 +47,9 @@ function Home() {
         </h1>
 
         <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--muted)] sm:text-lg">
-          Calcora brings everyday calculations and powerful
-          specialized tools into one focused workspace designed
-          for speed, clarity, and precision.
+          Calcora brings everyday calculations and specialized
+          tools into one focused workspace designed for speed,
+          clarity, and precision.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -61,17 +60,6 @@ function Home() {
             Open calculator
             <ArrowRight size={16} />
           </Link>
-
-          <button
-            type="button"
-            className="inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--surface-hover)]"
-          >
-            <Command size={15} />
-            Quick calculate
-            <kbd className="ml-1 rounded border border-[var(--border)] px-1.5 py-0.5 text-[10px] text-[var(--muted)]">
-              K
-            </kbd>
-          </button>
         </div>
       </div>
 

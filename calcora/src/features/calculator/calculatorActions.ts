@@ -43,6 +43,11 @@ export type CalculatorAction =
     {
       type: "signToggle";
     }
+  |
+    {
+      type: "setExpression";
+      value: string;
+    }
   | {
       type: "memoryClear";
     }

@@ -16,16 +16,19 @@ function MobileSidebar({
 
   return (
     <div className="fixed inset-0 z-50 md:hidden">
+      {/* Backdrop */}
       <button
         type="button"
         aria-label="Close navigation"
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 h-dvh w-full bg-black/60 backdrop-blur-sm"
       />
 
-      <div className="relative h-full w-[min(20rem,85vw)] shadow-2xl">
+      {/* Drawer */}
+      <div className="relative z-10 h-dvh w-[min(20rem,85vw)]">
         <SideBar mobile onNavigate={onClose} />
 
+        {/* Close button */}
         <button
           type="button"
           onClick={onClose}

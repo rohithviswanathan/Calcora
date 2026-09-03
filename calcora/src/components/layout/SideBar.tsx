@@ -23,12 +23,13 @@ function Sidebar({
   return (
     <aside
       className={[
-        "flex shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]",
+        "flex h-dvh min-h-0 shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]",
         mobile ? "w-full" : "hidden md:flex",
         !mobile && (collapsed ? "w-16" : "w-60"),
         !mobile ? "transition-[width] duration-200" : "",
       ].join(" ")}
     >
+      {/* Header */}
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-[var(--border)] px-3">
         <NavLink
           to="/"
@@ -51,9 +52,13 @@ function Sidebar({
         {!mobile && (
           <button
             type="button"
-            onClick={() => setCollapsed((value) => !value)}
+            onClick={() =>
+              setCollapsed((value) => !value)
+            }
             aria-label={
-              collapsed ? "Expand sidebar" : "Collapse sidebar"
+              collapsed
+                ? "Expand sidebar"
+                : "Collapse sidebar"
             }
             className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--foreground)]"
           >
@@ -66,22 +71,33 @@ function Sidebar({
         )}
       </div>
 
-      <Navigation
-        collapsed={isCollapsed}
-        onNavigate={onNavigate}
-      />
+      {/* Navigation */}
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <Navigation
+          collapsed={isCollapsed}
+          onNavigate={onNavigate}
+        />
+      </div>
 
+      {/* Settings */}
       <div className="shrink-0 border-t border-[var(--border)] p-3">
         <button
           type="button"
-          title={isCollapsed ? "Settings" : undefined}
+          title={
+            isCollapsed ? "Settings" : undefined
+          }
           className={`flex h-10 w-full items-center gap-3 rounded-lg px-2.5 text-sm text-[var(--muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--foreground)] ${
             isCollapsed ? "justify-center" : ""
           }`}
         >
-          <Settings size={17} strokeWidth={1.8} />
+          <Settings
+            size={17}
+            strokeWidth={1.8}
+          />
 
-          {!isCollapsed && <span>Settings</span>}
+          {!isCollapsed && (
+            <span>Settings</span>
+          )}
         </button>
       </div>
     </aside>

@@ -26,6 +26,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root.light {
+  color-scheme: light;
+
+  --background: #f8f8f9;
+  --surface: #ffffff;
+  --surface-hover: #f1f1f3;
+  --border: #e4e4e7;
+
+  --foreground: #18181b;
+  --muted: #71717a;
+
+  --primary: #18181b;
+  --primary-foreground: #ffffff;
+
+  --danger: #dc2626;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -54,6 +71,6 @@ button {
 }
 
 ::selection {
-  background: #3f3f46;
-  color: #ffffff;
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
