@@ -1,8 +1,6 @@
 import {
   ChevronLeft,
   ChevronRight,
-  History,
-  Save,
   Settings,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -25,7 +23,7 @@ function Sidebar({
   return (
     <aside
       className={[
-        "flex h-full shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]",
+        "flex shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]",
         mobile ? "w-full" : "hidden md:flex",
         !mobile && (collapsed ? "w-16" : "w-60"),
         !mobile ? "transition-[width] duration-200" : "",
@@ -74,32 +72,6 @@ function Sidebar({
       />
 
       <div className="shrink-0 border-t border-[var(--border)] p-3">
-        <NavLink
-          to="/history"
-          onClick={onNavigate}
-          title={isCollapsed ? "History" : undefined}
-          className={`mb-1 flex h-10 items-center gap-3 rounded-lg px-2.5 text-sm text-[var(--muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--foreground)] ${
-            isCollapsed ? "justify-center" : ""
-          }`}
-        >
-          <History size={17} strokeWidth={1.8} />
-
-          {!isCollapsed && <span>History</span>}
-        </NavLink>
-
-        <NavLink
-          to="/saved"
-          onClick={onNavigate}
-          title={isCollapsed ? "Saved" : undefined}
-          className={`mb-1 flex h-10 items-center gap-3 rounded-lg px-2.5 text-sm text-[var(--muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--foreground)] ${
-            isCollapsed ? "justify-center" : ""
-          }`}
-        >
-          <Save size={17} strokeWidth={1.8} />
-
-          {!isCollapsed && <span>Saved</span>}
-        </NavLink>
-
         <button
           type="button"
           title={isCollapsed ? "Settings" : undefined}

@@ -15,11 +15,16 @@ function ScientificCalculator() {
     clear,
     backspace,
     evaluate,
+    reciprocal,
+    factorial,
     memory,
     memoryClear,
     memoryRecall,
     memoryAdd,
     memorySubtract,
+    signToggle,
+    cube,
+    cubeRoot
   } = useCalculator();
 
   useEffect(() => {
@@ -167,10 +172,15 @@ function ScientificCalculator() {
               onClear={clear}
               onBackspace={backspace}
               onEvaluate={() => evaluate(angleMode)}
+              onReciprocal={reciprocal}
               onMemoryClear={memoryClear}
               onMemoryRecall={memoryRecall}
               onMemoryAdd={memoryAdd}
               onMemorySubtract={memorySubtract}
+              onFactorial={factorial}
+              onSignToggle={signToggle}
+              onCube={cube}
+              onCubeRoot={cubeRoot}
             />
           </div>
         </div>

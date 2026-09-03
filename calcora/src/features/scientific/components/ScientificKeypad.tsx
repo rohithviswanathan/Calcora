@@ -5,10 +5,15 @@ interface ScientificKeypadProps {
   onClear: () => void;
   onBackspace: () => void;
   onEvaluate: () => void;
+  onReciprocal: () => void;
   onMemoryClear: () => void;
   onMemoryRecall: () => void;
   onMemoryAdd: () => void;
   onMemorySubtract: () => void;
+  onFactorial: () => void;
+  onSignToggle: () => void;
+  onCube: () => void;
+  onCubeRoot: () => void;
 }
 
 function ScientificKeypad({
@@ -16,10 +21,15 @@ function ScientificKeypad({
   onClear,
   onBackspace,
   onEvaluate,
+  onReciprocal,
   onMemoryClear,
   onMemoryRecall,
   onMemoryAdd,
   onMemorySubtract,
+  onFactorial,
+  onSignToggle,
+  onCube,
+  onCubeRoot
 }: ScientificKeypadProps) {
   return (
     <div className="space-y-2">
@@ -86,10 +96,42 @@ function ScientificKeypad({
 
         <CalculatorKey
           variant="action"
+          onClick={() => onInput("asin(")}
+          ariaLabel="Inverse sine"
+        >
+          sin⁻¹
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={() => onInput("acos(")}
+          ariaLabel="Inverse cosine"
+        >
+          cos⁻¹
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={() => onInput("atan(")}
+          ariaLabel="Inverse tangent"
+        >
+          tan⁻¹
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
           onClick={() => onInput("sqrt(")}
           ariaLabel="Square root"
         >
           √
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onCubeRoot}
+          ariaLabel="Cube root"
+        >
+          ∛
         </CalculatorKey>
 
         <CalculatorKey
@@ -110,6 +152,14 @@ function ScientificKeypad({
 
         <CalculatorKey
           variant="action"
+          onClick={() => onInput("abs(")}
+          ariaLabel="Absolute value"
+        >
+          abs
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
           onClick={() => onInput("^2")}
           ariaLabel="Square"
         >
@@ -122,6 +172,38 @@ function ScientificKeypad({
           ariaLabel="Power"
         >
           xʸ
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onReciprocal}
+          ariaLabel="Reciprocal"
+        >
+          1/x
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onFactorial}
+          ariaLabel="Factorial"
+        >
+          x!
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onCube}
+          ariaLabel="Cube"
+        >
+          x³
+        </CalculatorKey>
+
+        <CalculatorKey
+          variant="action"
+          onClick={onSignToggle}
+          ariaLabel="Toggle positive or negative"
+        >
+          ±
         </CalculatorKey>
 
         <CalculatorKey

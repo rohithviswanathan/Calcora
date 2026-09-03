@@ -186,6 +186,357 @@ export function calculatorReducer(
       };
     }
 
+    case "reciprocal": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * use that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      /*
+      * Reciprocal of zero is undefined.
+      */
+      if (currentValue === 0) {
+        return {
+          ...state,
+          result: "",
+          error: "Cannot divide by zero.",
+          justEvaluated: false,
+        };
+      }
+
+      if (!Number.isFinite(currentValue)) {
+        return {
+          ...state,
+          result: "",
+          error: "Unable to calculate the reciprocal.",
+          justEvaluated: false,
+        };
+      }
+
+      const reciprocal = 1 / currentValue;
+
+      if (!Number.isFinite(reciprocal)) {
+        return {
+          ...state,
+          result: "",
+          error: "Unable to calculate the reciprocal.",
+          justEvaluated: false,
+        };
+      }
+
+      return {
+        ...state,
+        result: reciprocal.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "factorial": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * use that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      /*
+      * Factorial is only defined for
+      * non-negative integers.
+      */
+     if (!Number.isInteger(currentValue)) {
+        return {
+          ...state,
+          result: "",
+          error:
+            "Factorial requires a whole number.",
+          justEvaluated: false,
+        };
+      }
+
+      if (currentValue < 0) {
+        return {
+          ...state,
+          result: "",
+          error:
+            "Factorial requires a non-negative number.",
+          justEvaluated: false,
+        };
+      }
+
+      /*
+      * Prevent excessively large factorials
+      * from producing Infinity.
+      */
+      if (currentValue > 170) {
+        return {
+          ...state,
+          result: "",
+          error:
+            "The factorial result is too large.",
+          justEvaluated: false,
+        };
+      }
+
+      /*
+      * Calculate n!
+      */
+      let factorial = 1;
+
+      for (
+        let i = 2;
+        i <= currentValue;
+        i += 1
+      ) {
+        factorial *= i;
+      }
+
+      return {
+        ...state,
+        result: factorial.toLocaleString("en-US"),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "cube": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * use that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      const cube = currentValue ** 3;
+
+      if (!Number.isFinite(cube)) {
+        return {
+          ...state,
+          result: "",
+          error: "The result is too large.",
+          justEvaluated: false,
+        };
+      }
+
+      return {
+        ...state,
+        result: cube.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "cubeRoot": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * use that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      /*
+      * Math.cbrt() correctly handles both
+      * positive and negative numbers.
+      *
+      * Example:
+      * cbrt(27)  = 3
+      * cbrt(-27) = -3
+      */
+      const cubeRoot = Math.cbrt(currentValue);
+
+      if (!Number.isFinite(cubeRoot)) {
+        return {
+          ...state,
+          result: "",
+          error: "Unable to calculate the cube root.",
+          justEvaluated: false,
+        };
+      }
+
+      return {
+        ...state,
+        result: cubeRoot.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
+    case "signToggle": {
+      let currentValue: number;
+
+      /*
+      * If a result is already displayed,
+      * toggle that result directly.
+      */
+      if (state.result) {
+        currentValue = Number(
+          state.result.replaceAll(",", ""),
+        );
+      } else if (state.expression) {
+        /*
+        * Otherwise evaluate the current
+        * expression first.
+        */
+        const evaluation = calculate(
+          state.expression,
+        );
+
+        if (!evaluation.success) {
+          return {
+            ...state,
+            result: "",
+            error: evaluation.error.message,
+            justEvaluated: false,
+          };
+        }
+
+        currentValue =
+          evaluation.result.value;
+      } else {
+        return state;
+      }
+
+      /*
+      * Zero has no meaningful positive/negative
+      * distinction, so leave it unchanged.
+      */
+      if (currentValue === 0) {
+        return {
+          ...state,
+          result: "0",
+          error: null,
+          justEvaluated: true,
+        };
+      }
+
+      const toggledValue = -currentValue;
+
+      return {
+        ...state,
+        result: toggledValue.toLocaleString("en-US", {
+          maximumFractionDigits: 12,
+        }),
+        error: null,
+        justEvaluated: true,
+      };
+    }
+
     case "memoryClear":
       return {
         ...state,

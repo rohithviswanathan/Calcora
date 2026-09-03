@@ -25,17 +25,37 @@ function normalizeScientificExpression(
     "sqrt($1)",
   );
 
-  // Scientific trigonometric functions.
-  //
-  // DEG mode:
-  // sin(30) -> sin((30 * pi) / 180)
-  //
-  // RAD mode:
-  // sin(30) -> sin(30)
+  /*
+   * Trigonometric functions.
+   *
+   * DEG mode:
+   * sin(30) -> sin((30 * pi) / 180)
+   *
+   * RAD mode:
+   * sin(30) -> sin(30)
+   */
   if (angleMode === "deg") {
     normalized = normalized.replace(
       /\b(sin|cos|tan)\(([^()]*)\)/g,
       "$1((($2) * pi) / 180)",
+    );
+  }
+
+  /*
+   * Inverse trigonometric functions.
+   *
+   * mathjs returns inverse trig results in radians.
+   *
+   * DEG mode:
+   * asin(0.5) -> 30
+   *
+   * RAD mode:
+   * asin(0.5) -> pi / 6
+   */
+  if (angleMode === "deg") {
+    normalized = normalized.replace(
+      /\b(asin|acos|atan)\(([^()]*)\)/g,
+      "($1(($2)) * 180 / pi)",
     );
   }
 

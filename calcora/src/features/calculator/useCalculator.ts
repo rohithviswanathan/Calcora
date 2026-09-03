@@ -40,6 +40,36 @@ export function useCalculator() {
     [],
   );
 
+  const reciprocal = useCallback(() => {
+    dispatch({
+      type: "reciprocal",
+    });
+  }, []);
+
+  const signToggle = useCallback(() => {
+    dispatch({
+      type: "signToggle",
+    });
+  }, []);
+
+  const factorial = useCallback(() => {
+    dispatch({
+      type: "factorial",
+    });
+  }, []);
+
+  const cube = useCallback(() => {
+    dispatch({
+      type: "cube",
+    });
+  }, []);
+
+  const cubeRoot = useCallback(() => {
+    dispatch({
+      type: "cubeRoot",
+    });
+  }, []);
+
   const memoryClear = useCallback(() => {
     dispatch({
       type: "memoryClear",
@@ -70,10 +100,15 @@ export function useCalculator() {
     error: state.error,
     justEvaluated: state.justEvaluated,
     memory: state.memory,
+    factorial,
+    cube,
+    cubeRoot,
     input,
     clear,
     backspace,
+    signToggle,
     evaluate,
+    reciprocal,
     memoryClear,
     memoryRecall,
     memoryAdd,

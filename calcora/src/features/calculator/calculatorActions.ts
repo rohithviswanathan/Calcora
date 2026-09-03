@@ -6,12 +6,30 @@ export type CalculatorAction =
   | {
       type: "clear";
     }
+  |
+    {
+      type: "cube";
+    }
+  |
+    {
+      type: "cubeRoot";
+    }
   | {
       type: "backspace";
     }
   | {
       type: "evaluate";
       angleMode?: "deg" | "rad";
+    }
+  | {
+      type: "reciprocal";
+    }
+  | {
+      type: "factorial";
+    }
+  |
+    {
+      type: "signToggle";
     }
   | {
       type: "memoryClear";

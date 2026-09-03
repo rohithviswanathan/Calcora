@@ -262,4 +262,103 @@ describe("calculate", () => {
       expect(result.result.value).toBe(30);
     }
   });
+
+  it("calculates inverse sine in degrees", () => {
+    const result = calculate("asin(0.5)", "deg");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(30, 10);
+    }
+  });
+
+  it("calculates inverse cosine in degrees", () => {
+    const result = calculate("acos(0.5)", "deg");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(60, 10);
+    }
+  });
+
+  it("calculates inverse tangent in degrees", () => {
+    const result = calculate("atan(1)", "deg");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(45, 10);
+    }
+  });
+
+  it("calculates inverse sine in radians", () => {
+    const result = calculate("asin(0.5)", "rad");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(
+        Math.PI / 6,
+        10,
+      );
+    }
+  });
+
+  it("calculates inverse cosine in radians", () => {
+    const result = calculate("acos(0.5)", "rad");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(
+        Math.PI / 3,
+        10,
+      );
+    }
+  });
+
+  it("calculates inverse tangent in radians", () => {
+    const result = calculate("atan(1)", "rad");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBeCloseTo(
+        Math.PI / 4,
+        10,
+      );
+    }
+  });
+
+  it("calculates absolute value", () => {
+    const result = calculate("abs(-5)");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(5);
+    }
+  });
+
+  it("calculates absolute value of a decimal", () => {
+    const result = calculate("abs(-12.5)");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(12.5);
+    }
+  });
+
+  it("calculates absolute value of an expression", () => {
+    const result = calculate("abs(3 - 8)");
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.result.value).toBe(5);
+    }
+  });
 });
