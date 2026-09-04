@@ -1,5 +1,12 @@
 import LengthConverter from "../../features/converter/components/LengthConverter";
 import WeightConverter from "../../features/converter/components/WeightConverter";
+import TemperatureConverter from "../../features/converter/components/TemperatureConverter";
+import AreaConverter from "../../features/converter/components/AreaConverter";
+import VolumeConverter from "../../features/converter/components/VolumeConverter";
+import TimeConverter from "../../features/converter/components/TimeConverter";
+import SpeedConverter from "../../features/converter/components/SpeedConverter";
+import DataConverter from "../../features/converter/components/DataConverter";
+import EnergyConverter from "../../features/converter/components/EnergyConverter";
 
 function Converter() {
   return (
@@ -10,17 +17,25 @@ function Converter() {
         </p>
 
         <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-          Unit converter
+          Unit converters
         </h1>
 
         <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--muted)]">
-          Convert values quickly across common measurement units.
+          Convert common measurements quickly and accurately across different
+          units.
         </p>
       </div>
 
       <div className="space-y-5">
         <LengthConverter />
         <WeightConverter />
+        <TemperatureConverter />
+        <AreaConverter />
+        <VolumeConverter />
+        <TimeConverter />
+        <SpeedConverter />
+        <DataConverter />
+        <EnergyConverter />
       </div>
     </section>
   );
