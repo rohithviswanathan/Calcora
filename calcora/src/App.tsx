@@ -5,7 +5,7 @@ import CalculatorPage from "./pages/Calculator/Calculator";
 import Scientific from "./pages/Scientific/Scientific";
 import Finance from "./pages/Finance/Finance";
 import Converter from "./pages/Converter/Converter";
-import Geometry from "./pages/Geometry/Geometry";
+import Geometry from "./pages/Geometry/Geometry"; 
 import Statistics from "./pages/Statistics/Statistics";
 import DateTime from "./pages/DateTime/DateTime";
 
