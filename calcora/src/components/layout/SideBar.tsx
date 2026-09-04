@@ -1,7 +1,6 @@
 import {
   ChevronLeft,
   ChevronRight,
-  Settings,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
@@ -79,27 +78,6 @@ function Sidebar({
         />
       </div>
 
-      {/* Settings */}
-      <div className="shrink-0 border-t border-[var(--border)] p-3">
-        <button
-          type="button"
-          title={
-            isCollapsed ? "Settings" : undefined
-          }
-          className={`flex h-10 w-full items-center gap-3 rounded-lg px-2.5 text-sm text-[var(--muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--foreground)] ${
-            isCollapsed ? "justify-center" : ""
-          }`}
-        >
-          <Settings
-            size={17}
-            strokeWidth={1.8}
-          />
-
-          {!isCollapsed && (
-            <span>Settings</span>
-          )}
-        </button>
-      </div>
     </aside>
   );
 }
