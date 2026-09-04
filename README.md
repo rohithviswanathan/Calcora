@@ -74,9 +74,9 @@ The finance utilities validate numeric input and reject invalid values such as n
 
 ### Unit converter
 
-The converter section currently includes:
+The converter section currently includes eight categories:
 
-- Length conversion between:
+- Length:
   - Millimeters
   - Centimeters
   - Meters
@@ -85,7 +85,7 @@ The converter section currently includes:
   - Feet
   - Yards
   - Miles
-- Weight conversion between:
+- Weight:
   - Milligrams
   - Grams
   - Kilograms
@@ -93,8 +93,61 @@ The converter section currently includes:
   - Ounces
   - Pounds
   - Stones
+- Temperature:
+  - Celsius
+  - Fahrenheit
+  - Kelvin
+- Area:
+  - Square millimeters, square centimeters, square meters, square kilometers
+  - Square inches, square feet, square yards, acres, hectares, square miles
+- Volume:
+  - Milliliters, liters, cubic centimeters, cubic meters
+  - Cubic inches, cubic feet, cubic yards, gallons, quarts, pints
+- Time:
+  - Milliseconds, seconds, minutes, hours, days, weeks, months, years
+- Speed:
+  - Meters per second
+  - Kilometers per hour
+  - Miles per hour
+  - Feet per second
+  - Knots
+- Data:
+  - Bits, bytes, kilobits, kilobytes, megabits, megabytes
+  - Gigabits, gigabytes, terabits, terabytes
 
-Conversions use meters and kilograms as normalized base units before calculating the target value.
+Conversions use normalized base units before calculating the target value. Temperature conversion uses Celsius as its intermediate unit.
+
+### Geometry calculators
+
+The geometry section includes calculators for:
+
+- Square, rectangle, triangle, and circle area/perimeter or circumference
+- Cube, cuboid, cylinder, sphere, and cone volume/surface area
+- Triangle area from three sides using Heron's formula
+- Triangle perimeter, angles, and Pythagorean theorem calculations
+
+### Statistics calculator
+
+The statistics calculator accepts numbers separated by commas or spaces and calculates:
+
+- Count
+- Sum
+- Mean
+- Median
+- Mode
+- Minimum
+- Maximum
+- Range
+
+### Date & Time calculator
+
+The date and time section includes:
+
+- Difference between two dates
+- Adding or subtracting days from a date
+- Age calculation between a birth date and reference date
+- Day of the week for a date
+- Number of days in a month
 
 ### Application navigation
 
@@ -102,15 +155,8 @@ Calcora uses a shared application layout with grouped navigation:
 
 - **Calculate**: Calculator and Scientific
 - **Explore**: Finance, Converter, Geometry, Statistics, and Date & Time
-- **Personal**: History and Saved
 
-The following routes are currently present as placeholders and are ready for future feature implementation:
-
-- Geometry
-- Statistics
-- Date & Time
-- History
-- Saved
+All navigation entries currently point to implemented pages. History and Saved are not currently registered routes.
 
 ## Technology stack
 
@@ -143,17 +189,22 @@ calcora/
 │   │   └── navigation.ts        Navigation sections and route definitions
 │   ├── features/
 │   │   ├── calculator/          Standard calculator engine, state, and UI
-│   │   ├── converter/           Length and weight conversion utilities and UI
-│   │   ├── finance/              Financial calculation utilities and UI
-│   │   ├── quickCalculate/       Quick calculation experience
-│   │   └── scientific/           Scientific calculator UI and keypad
+│   │   ├── converter/           Unit conversion utilities and UI
+│   │   ├── dateTime/            Date and time utilities and UI
+│   │   ├── finance/             Financial calculation utilities and UI
+│   │   ├── geometry/            Geometry utilities and calculators
+│   │   ├── quickCalculate/      Quick calculation experience
+│   │   ├── scientific/          Scientific calculator UI and keypad
+│   │   └── statistics/          Statistics utilities and calculator UI
 │   ├── pages/
 │   │   ├── Home/                Home page
 │   │   ├── Calculator/          Standard calculator page
 │   │   ├── Scientific/          Scientific calculator page
 │   │   ├── Finance/             Finance page
 │   │   ├── Converter/           Converter page
-│   │   └── PlaceholderPage.tsx  Placeholder view for future routes
+│   │   ├── Geometry/            Geometry page
+│   │   ├── Statistics/          Statistics page
+│   │   └── DateTime/            Date and time page
 │   ├── test/
 │   │   └── setup.ts             Test environment setup
 │   ├── App.tsx                  Router and application routes
@@ -226,7 +277,7 @@ Run the complete test suite once:
 npm run test:run
 ```
 
-The current tests cover the calculator engine, calculator reducer, finance utilities, and converter utilities. Core cases include arithmetic, operator precedence, percentage behavior, trigonometry, logarithms, interest calculations, loan calculations, tips, discounts, and unit conversions.
+The current tests cover the calculator engine and reducer, finance utilities, converter utilities, geometry utilities, statistics utilities, and date/time utilities. Core cases include arithmetic, operator precedence, percentage behavior, trigonometry, logarithms, interest calculations, loan calculations, tips, discounts, unit conversions, shape formulas, dataset summaries, and date operations.
 
 ## Linting
 
@@ -256,11 +307,9 @@ npm run lint
 | `/scientific` | Scientific calculator | Available |
 | `/finance` | Financial calculators | Available |
 | `/converter` | Unit converter | Available |
-| `/geometry` | Geometry tools | Placeholder |
-| `/statistics` | Statistics tools | Placeholder |
-| `/date-time` | Date and time tools | Placeholder |
-| `/history` | Calculation history | Placeholder |
-| `/saved` | Saved calculations | Placeholder |
+| `/geometry` | Geometry tools | Available |
+| `/statistics` | Statistics tools | Available |
+| `/date-time` | Date and time tools | Available |
 
 ## Calculation engine
 
@@ -320,12 +369,8 @@ This result shape keeps successful calculations and user-facing errors explicit 
 
 Potential future work includes:
 
-- Geometry calculators and visual diagrams
-- Statistics calculations and data visualization
-- Date and time calculations
 - Persistent calculation history
 - Saved calculations
-- More unit categories, including temperature, area, volume, speed, and time
 - Expanded scientific functions and constants
 - Additional component and interaction tests
 
