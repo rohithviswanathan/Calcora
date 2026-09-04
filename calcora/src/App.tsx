@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home/Home";
-import PlaceholderPage from "./pages/PlaceholderPage";
 import CalculatorPage from "./pages/Calculator/Calculator";
 import Scientific from "./pages/Scientific/Scientific";
 import Finance from "./pages/Finance/Finance";
 import Converter from "./pages/Converter/Converter";
 import Geometry from "./pages/Geometry/Geometry";
+import Statistics from "./pages/Statistics/Statistics";
+import DateTime from "./pages/DateTime/DateTime";
 
 function App() {
   return (
@@ -31,45 +32,9 @@ function App() {
 
           <Route path="/geometry" element={<Geometry />} />
 
-          <Route
-            path="/statistics"
-            element={
-              <PlaceholderPage
-                title="Statistics"
-                description="Statistical calculations and data visualization will live here."
-              />
-            }
-          />
+          <Route path="/statistics" element={<Statistics />} />
 
-          <Route
-            path="/date-time"
-            element={
-              <PlaceholderPage
-                title="Date & Time"
-                description="Date and time calculations will live here."
-              />
-            }
-          />
-
-          <Route
-            path="/history"
-            element={
-              <PlaceholderPage
-                title="History"
-                description="Your calculation history will live here."
-              />
-            }
-          />
-
-          <Route
-            path="/saved"
-            element={
-              <PlaceholderPage
-                title="Saved"
-                description="Your saved calculations will appear here."
-              />
-            }
-          />
+          <Route path="/date-time" element={<DateTime />} />
           
         </Route>
       </Routes>
