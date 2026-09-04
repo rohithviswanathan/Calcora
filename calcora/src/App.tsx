@@ -6,6 +6,7 @@ import CalculatorPage from "./pages/Calculator/Calculator";
 import Scientific from "./pages/Scientific/Scientific";
 import Finance from "./pages/Finance/Finance";
 import Converter from "./pages/Converter/Converter";
+import Geometry from "./pages/Geometry/Geometry";
 
 function App() {
   return (
@@ -28,15 +29,7 @@ function App() {
 
           <Route path="/converter" element={<Converter />} />
 
-          <Route
-            path="/geometry"
-            element={
-              <PlaceholderPage
-                title="Geometry"
-                description="Geometry calculations and visual diagrams will live here."
-              />
-            }
-          />
+          <Route path="/geometry" element={<Geometry />} />
 
           <Route
             path="/statistics"
