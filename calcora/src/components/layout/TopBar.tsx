@@ -78,7 +78,7 @@ function TopBar({
             onClick={() =>
               setQuickCalculateOpen(true)
             }
-            className="flex h-9 min-w-0 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 text-sm text-[var(--muted)] transition-colors hover:border-zinc-700 hover:text-[var(--foreground)]"
+            className="hidden md:flex h-9 min-w-0 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 text-sm text-[var(--muted)] transition-colors hover:border-zinc-700 hover:text-[var(--foreground)]"
           >
             <Command
               size={15}
