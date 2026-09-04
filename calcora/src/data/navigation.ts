@@ -3,10 +3,8 @@ import {
   CalendarDays,
   CircleDollarSign,
   FlaskConical,
-  History,
   Ruler,
   Shapes,
-  Save,
   Sigma,
 } from "lucide-react";
 
@@ -66,20 +64,5 @@ export const navigationSections: NavigationSection[] = [
         icon: CalendarDays,
       },
     ],
-  },
-  {
-    label: "Personal",
-    items: [
-      {
-        label: "History",
-        path: "/history",
-        icon: History,
-      },
-      {
-        label: "Saved",
-        path: "/saved",
-        icon: Save,
-      },
-    ],
-  },
+  }
 ];
