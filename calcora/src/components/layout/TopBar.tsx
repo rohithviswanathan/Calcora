@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import {
   Command,
-  History,
   Menu,
   Moon,
   Sun,
 } from "lucide-react";
 import IconButton from "../ui/IconButton";
 import QuickCalculate from "../../features/quickCalculate/components/QuickCalculate";
-import { Link } from "react-router-dom";
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -96,12 +94,6 @@ function TopBar({
         </div>
 
         <div className="flex items-center gap-1.5">
-          <Link to="/history">
-            <IconButton label="History">
-              <History size={17} />
-            </IconButton>
-          </Link>
-
           <IconButton
             label={
               theme === "dark"
